@@ -3,5 +3,11 @@ html
     title Shifts
   body
     form(name="shiftEntry", method="post")
+      div.inputs
+        input(
+          type="text",
+          name="dateEntry"
+          placeholder="October 22 2016 from 11:36:21 to 12:34:43")
+
       div.actions
         input(type="submit", value="Get events")
