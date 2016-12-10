@@ -1,9 +1,12 @@
 html
   head
     title Shifts
+    link(href='/css/shiftEntry.css', rel='stylesheet', type='text/css')
   body
+    h1 Shifts
     form(name="shiftEntry", method="post")
       div.inputs
+        label(for="dateEntry") Event date/time:
         input(
           type="text",
           name="dateEntry"
