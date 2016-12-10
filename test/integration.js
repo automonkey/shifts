@@ -1,10 +1,10 @@
-var request = require('supertest');
+const request = require('supertest');
 
-var app = require('../lib/app');
+const app = require('../lib/app');
 
 describe('date entry processing', function() {
 
-  it('should return ics data', function(done) {
+  it('should return ics data', done => {
 
     const expectedIcsData =
       "BEGIN:VCALENDAR\n" +
@@ -14,16 +14,27 @@ describe('date entry processing', function() {
       "UID:uid1@example.com\n" +
       "DTSTAMP:19970714T170000Z\n" +
       "ORGANIZER;CN=John Doe:MAILTO:john.doe@example.com\n" +
-      "DTSTART:19970714T170000Z\n" +
-      "DTEND:19970715T035959Z\n" +
+      "DTSTART;TZID=Europe/London:20161022T113621\n" +
+      "DTEND;TZID=Europe/London:20161022T123443\n" +
       "SUMMARY:Bastille Day Party\n" +
       "END:VEVENT\n" +
       "END:VCALENDAR";
 
     request(app())
       .post('/')
+      .type('form')
+      .send({dateEntry: 'October 22 2016 from 11:36:21 to 12:34:43'})
       .expect(200)
       .expect(expectedIcsData, done);
   });
+
+  it('should report invalid date entry', done => {
+    request(app())
+      .post('/')
+      .type('form')
+      .send({dateEntry: 'something-invalid'})
+      .expect(400)
+      .expect("What kind of a time is 'something-invalid'?!", done)
+  })
 
 });
