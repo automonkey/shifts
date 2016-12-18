@@ -9,11 +9,15 @@ html
     div.container-fluid
       h1 Shifts
       form.col-sm-6(name="shiftEntry", method="post")
-        label(for="dateEntry") Event date/time:
-        input(
-          type="text",
-          name="dateEntry"
-          placeholder="October 22 2016 from 11:36:21 to 12:34:43")
+        - var dateEntryClasses = (error ? 'form-group has-error has-feedback' : 'form-group')
+        div(class=dateEntryClasses)
+          label.control-label(for="dateEntry") Event date/time:
+          input#dateEntry.form-control(
+            type="text"
+            name="dateEntry"
+            placeholder="October 22 2016 from 11:36:21 to 12:34:43"
+            value=entry)
+          span#error-msg.help-block #{error}
         input(type="submit", value="Add to calendar")
       div.col-sm-6
         p Some examples of possible event entries are:

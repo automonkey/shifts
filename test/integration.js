@@ -1,4 +1,6 @@
+const cheerio = require('cheerio');
 const request = require('supertest');
+const expect = require('chai').expect;
 
 const app = require('../lib/app');
 
@@ -34,7 +36,12 @@ describe('date entry processing', function() {
       .type('form')
       .send({dateEntry: 'something-invalid'})
       .expect(400)
-      .expect("What kind of a time is 'something-invalid'?!", done)
+      .expect(res => {
+        const html = cheerio.load(res.text);
+        expect(html('input#dateEntry').val()).to.equal('something-invalid');
+        expect(html('span#error-msg').text()).to.equal("What kind of a time is 'something-invalid'?!");
+      })
+      .end(done)
   })
 
 });
