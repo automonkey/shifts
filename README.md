@@ -19,4 +19,4 @@ source ci-env-setup.sh
 npm test
 ```
 
-The setup script is sourced due to the way nvm works, and the fact it's inaccessible from executed scripts.
+The setup script is sourced due to the way nvm works meaning the nvm command is not accessible from executed scripts.
