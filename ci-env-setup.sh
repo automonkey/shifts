@@ -1,3 +1,4 @@
 nvm install
 nvm use
-npm install
+npm install -g yarn
+yarn install
