@@ -38,8 +38,8 @@ describe('date entry processing', function() {
       .expect(400)
       .expect(res => {
         const html = cheerio.load(res.text);
-        expect(html('input#dateEntry').val()).to.equal('something-invalid');
-        expect(html('span#error-msg').text()).to.equal("What kind of a time is 'something-invalid'?!");
+        expect(html('#dateEntry').val()).to.equal('something-invalid');
+        expect(html('#error-msg').text()).to.equal("What kind of a time is 'something-invalid'?!");
       })
       .end(done)
   })

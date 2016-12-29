@@ -11,7 +11,7 @@ describe('date parser', () => {
 
     expect(res.errors).to.be.empty;
 
-    const eventDateRange = res.date;
+    const eventDateRange = res.dates[0];
 
     expect(eventDateRange).to.have.property('from');
     const from = eventDateRange.from;
@@ -30,6 +30,14 @@ describe('date parser', () => {
     expect(to.getHours()).to.equal(14);
     expect(to.getMinutes()).to.equal(34);
     expect(to.getSeconds()).to.equal(43);
+  });
+
+  it('should parse multiple dates', () => {
+    const res = parser.processEntry(
+      'Sat 10 - 11\nSunday 16 - 18\nMonday 17 - 18');
+
+    expect(res.errors).to.be.empty;
+    expect(res.dates.length).to.equal(3);
   });
 
   it('should error if empty input', () => {
